@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>黄庭禅</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="row" id="result">
+        <div class="col-md-8 col-md-offset-2" id="content">
+            <form class="form" method="GET" action="/search">
+                <div class="input-group">
+                    <input type="text" name="search_key" class="form-control input-lg" placeholder="搜索关键词">
+            <span class="input-group-btn">
+                <input type="submit" class="btn btn-info btn-lg" value="搜索一下" onclick="return valid();">
+            </span>
+                </div>
+            </form>
+
+            <br>
+            <br>
+
+            {{range $key, $val := .as}}
+            <h3><a href="/article/{{$val.Id}}">{{str2html $val.Title}}</a></h3>
+
+            <p>{{str2html $val.Abs}}</p>
+            <br>
+            <p class="text-muted text-right">
+                <small>
+                    作者：<a href="/search/author/{{$val.Author}}">{{$val.Author}}</a>
+                    类型：<a href="/search/kind/{{$val.Kind}}">{{$val.Kind}}</a>
+                    时间：{{justdate $val.Ctime}}
+                    <small>
+            </p>
+            <hr>
+            {{else}}
+            没有找到匹配的文章！
+            {{end}}
+
+            <!--<div class="panel panel-info">-->
+            <!--<div class="panel-heading">搜索结果</div>-->
+            <!--&lt;!&ndash;{{range $key, $val :=  .as}}&ndash;&gt;-->
+            <!--&lt;!&ndash;<h3 ><a href="/article/{{$val.Id}}" style="margin-left:2em;">{{str2html $val.Title}}</a> </h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p>{{str2html $val.Content}}</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+            <!--&lt;!&ndash;{{end}}&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="list-group">&ndash;&gt;-->
+            <!--&lt;!&ndash;{{range $key, $val :=  .as}}&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="list-group-item" href="/article/{{$val.Id}}">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h3 class="list-group-item-heading">{{str2html $val.Title}}</h3>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="list-group-item-text">{{str2html $val.Content}}</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;{{end}}&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
